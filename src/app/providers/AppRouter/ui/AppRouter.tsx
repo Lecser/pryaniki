@@ -23,8 +23,7 @@ const newRouter = createBrowserRouter(
       ),
       errorElement: <ErrorPage />
     };
-  }),
-  { basename: '/' }
+  })
 );
 
 export const AppRouter = () => {

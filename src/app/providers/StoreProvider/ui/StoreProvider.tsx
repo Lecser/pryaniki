@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
 import { DeepPartial } from 'redux';
 
-import { StateSchema } from '../config/StateSchema';
+import { StateSchema } from '../config/stateSchema';
 import { createReduxStore } from '../config/store';
 
 interface StoreProviderProps {

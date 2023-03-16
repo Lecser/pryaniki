@@ -1,2 +1,2 @@
-export { StateSchema, ThunkConfig } from './config/StateSchema';
+export { StateSchema, ThunkConfig } from './config/stateSchema';
 export { AppDispatch } from './config/store';

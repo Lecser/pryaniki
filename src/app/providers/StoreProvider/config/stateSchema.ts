@@ -1,6 +1,6 @@
 import { AxiosInstance } from 'axios';
 import { UserSchema } from 'entities/user';
-import { LoginSchema } from 'features/Auth/types/loginSchema';
+import { LoginSchema } from 'features/auth';
 
 export interface StateSchema {
   login: LoginSchema;

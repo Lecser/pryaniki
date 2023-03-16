@@ -1,8 +1,6 @@
 {
   "name": "pryaniki",
   "version": "1.0.0",
-  "private": true,
-  "homepage": ".",
   "description": "",
   "main": "index.tsx",
   "scripts": {
