@@ -24,7 +24,7 @@ const newRouter = createBrowserRouter(
       errorElement: <ErrorPage />
     };
   }),
-  { basename: AppPaths.app }
+  { basename: '/React' }
 );
 
 export const AppRouter = () => {
