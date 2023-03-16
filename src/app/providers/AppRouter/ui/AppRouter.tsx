@@ -24,7 +24,7 @@ const newRouter = createBrowserRouter(
       errorElement: <ErrorPage />
     };
   }),
-  { basename: AppPaths.loginPage }
+  { basename: AppPaths.app }
 );
 
 export const AppRouter = () => {
