@@ -8,7 +8,7 @@ import { PageLayout } from 'widgets/pageLayout';
 
 import { RequiredAuth } from '../config/RequiredAuth';
 import { RequiredNonAuth } from '../config/RequiredNonAuth';
-import { appRouterConfig } from '../config/routerConfig';
+import { AppPaths, appRouterConfig } from '../config/routerConfig';
 
 const newRouter = createBrowserRouter(
   appRouterConfig.map((route) => {
@@ -23,7 +23,8 @@ const newRouter = createBrowserRouter(
       ),
       errorElement: <ErrorPage />
     };
-  })
+  }),
+  { basename: AppPaths.loginPage }
 );
 
 export const AppRouter = () => {
