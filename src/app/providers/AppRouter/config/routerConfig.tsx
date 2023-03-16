@@ -1,4 +1,4 @@
-import { LoginPage } from 'pages/LoginPage/ui/loginPage';
+import { LoginPage } from 'pages/LoginPage';
 import { TablePage } from 'pages/TablePage';
 import { ReactNode } from 'react';
 

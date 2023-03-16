@@ -1,10 +1,10 @@
-import { addNewUserData } from 'entities/user';
-import { updateUserData } from 'entities/user/model/services/updateUserData/updateUserData';
+import { deleteUserDocumentThunk } from 'features/tableRowDelete';
 
-import { GridRowId } from '@mui/x-data-grid';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
-import { getUserData } from '../services/getUserData/getUserData';
+import { addNewUserDataThunk } from '../services/addNewUserData/addNewUserDataThunk';
+import { getUserDataThunk } from '../services/getUserData/getUserDataThunk';
+import { updateUserDataThunk } from '../services/updateUserData/updateUserDataThunk';
 import { UserSchema } from '../types/userSchema';
 
 const initialState: UserSchema = {
@@ -19,56 +19,60 @@ export const userSlice = createSlice({
   reducers: {
     clearUserData: (state) => {
       state.userData = [];
-    },
-    setIsLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
-    deleteUser: (state, action: PayloadAction<GridRowId>) => {
-      state.userData = state.userData.filter((el) => el.id !== action.payload);
-    },
-    setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
     }
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserData.pending, (state) => {
+      .addCase(getUserDataThunk.pending, (state) => {
         state.error = null;
         state.isLoading = true;
       })
-      .addCase(getUserData.fulfilled, (state, action) => {
+      .addCase(getUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userData = action.payload;
       })
-      .addCase(getUserData.rejected, (state, action) => {
+      .addCase(getUserDataThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
     builder
-      .addCase(updateUserData.pending, (state) => {
+      .addCase(updateUserDataThunk.pending, (state) => {
         state.error = null;
         state.isLoading = true;
       })
-      .addCase(updateUserData.fulfilled, (state, action) => {
+      .addCase(updateUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userData = state.userData.map((el) =>
           el.id === action.payload.id ? { ...action.payload } : el
         );
       })
-      .addCase(updateUserData.rejected, (state, action) => {
+      .addCase(updateUserDataThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
     builder
-      .addCase(addNewUserData.pending, (state) => {
+      .addCase(addNewUserDataThunk.pending, (state) => {
         state.error = null;
         state.isLoading = true;
       })
-      .addCase(addNewUserData.fulfilled, (state, action) => {
+      .addCase(addNewUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userData.push(action.payload);
       })
-      .addCase(addNewUserData.rejected, (state, action) => {
+      .addCase(addNewUserDataThunk.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+    builder
+      .addCase(deleteUserDocumentThunk.pending, (state) => {
+        state.error = null;
+        state.isLoading = true;
+      })
+      .addCase(deleteUserDocumentThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = state.userData.filter((el) => el.id !== action.payload);
+      })
+      .addCase(deleteUserDocumentThunk.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });

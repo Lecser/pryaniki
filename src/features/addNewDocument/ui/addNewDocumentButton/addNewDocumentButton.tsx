@@ -1,14 +1,14 @@
-import { addNewUserData } from 'entities/user';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { addNewUserDataThunk } from 'entities/user';
+import { useAction } from 'shared/lib/hooks/useActions/useActions';
 
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import { Button } from '@mui/material';
 
 export const AddNewDocumentButton = () => {
-  const dispatch = useAppDispatch();
-
+  const actions = { addNewUserData: addNewUserDataThunk };
+  const { addNewUserData } = useAction(actions);
   const onClickAdd = () => {
-    dispatch(addNewUserData());
+    addNewUserData();
   };
 
   return (

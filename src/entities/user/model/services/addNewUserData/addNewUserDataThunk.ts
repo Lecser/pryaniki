@@ -1,37 +1,37 @@
-import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
+import { ThunkConfig } from 'app/providers/StoreProvider';
 import axios from 'axios';
-import { userActions } from 'entities/user';
-import { User } from 'entities/user/model/types/userSchema';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const addNewUserData = createAsyncThunk<User, null, ThunkConfig<string>>(
-  'user/addNewUserData',
-  async (_, thunkAPI) => {
-    const { extra, dispatch, rejectWithValue } = thunkAPI;
+import { User } from '../../types/userSchema';
 
-    const user = {
-      companySigDate: new Date().toISOString(),
+export const addNewUserDataThunk = createAsyncThunk<User, null, ThunkConfig<string>>(
+  'user/addNewUserDataThunk',
+  async (_, thunkAPI) => {
+    const { extra, rejectWithValue } = thunkAPI;
+
+    const isoDate = new Date().toISOString();
+    const userData = {
+      companySigDate: isoDate,
       companySignatureName: 'empty',
       documentName: 'empty',
       documentStatus: 'empty',
       documentType: 'empty',
       employeeNumber: 'empty',
-      employeeSigDate: new Date().toISOString(),
+      employeeSigDate: isoDate,
       employeeSignatureName: 'empty'
     };
 
     try {
       const res = await extra.api.post<ResponseType<User>>(
         `ru/data/v3/testmethods/docs/userdocs/create`,
-        user
+        userData
       );
       if (res.data.error_code !== 0) {
-        dispatch(userActions.setError(res.data.error_text));
-      } else {
-        return res.data.data;
+        return rejectWithValue(res.data.error_text);
       }
+      return res.data.data;
     } catch (e) {
       if (axios.isAxiosError(e)) {
         return rejectWithValue(e.message ? e.message : 'Some error occurred');

@@ -1,17 +1,18 @@
 import { userActions } from 'entities/user';
-import { loginActions } from 'features/auth/model/slice/loginSlice';
+import { loginActions } from 'features/auth';
 import { PropsWithChildren } from 'react';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAction } from 'shared/lib/hooks/useActions/useActions';
 
 import { Button } from '@mui/material';
 
 export const LogoutButton = (props: PropsWithChildren) => {
   const { children } = props;
+  const actions = { ...userActions, ...loginActions };
+  const { clearUserData, setToken } = useAction(actions);
 
-  const dispatch = useAppDispatch();
   const onLogoutClick = () => {
-    dispatch(loginActions.setToken(''));
-    dispatch(userActions.clearUserData());
+    setToken('');
+    clearUserData();
     document.cookie = `token=;expires=${new Date(0)}`;
   };
 

@@ -1,2 +1,3 @@
 export { getToken } from './model/selectors/getToken/getToken';
-export { loginReducer } from './model/slice/loginSlice';
+export { loginActions, loginReducer } from './model/slice/loginSlice';
+export { InputsType } from './ui/LoginForm/LoginForm';

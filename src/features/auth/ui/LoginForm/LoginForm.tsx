@@ -1,10 +1,8 @@
-import { getLoginError } from 'features/Auth/model/selectors/getLoginError/getLoginError';
-import { getLoginIsLoading } from 'features/Auth/model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar';
+import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
 import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,16 +20,21 @@ import {
   Typography
 } from '@mui/material';
 
-import { loginByUsername } from '../../model/services/loginByUsername';
+import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
+import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
+import { loginByUsernameThunk } from '../../model/services/loginByUsernameThunk';
 
-export interface LoginForm {
+export interface InputsType {
   username: string;
   password: string;
 }
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useAppDispatch();
+  const loginIsLoading = useSelector(getLoginIsLoading);
+  const error = useSelector(getLoginError);
+  const actions = { loginByUsername: loginByUsernameThunk };
+  const { loginByUsername } = useAction(actions);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const Schema = yup.object({
@@ -43,7 +46,7 @@ export const LoginForm = () => {
     handleSubmit,
     control,
     formState: { errors }
-  } = useForm<LoginForm>({
+  } = useForm<InputsType>({
     defaultValues: {
       username: '',
       password: ''
@@ -52,11 +55,8 @@ export const LoginForm = () => {
     resolver: yupResolver(Schema)
   });
 
-  const loginIsLoading = useSelector(getLoginIsLoading);
-  const error = useSelector(getLoginError);
-
-  const onSubmit: SubmitHandler<LoginForm> = (data) => {
-    dispatch(loginByUsername(data));
+  const onSubmit: SubmitHandler<InputsType> = (data) => {
+    loginByUsername(data);
   };
 
   const BlackButton = styled(Button)({

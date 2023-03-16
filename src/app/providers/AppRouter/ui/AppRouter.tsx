@@ -1,13 +1,13 @@
-import { RequiredNonAuth } from 'app/providers/AppRouter/config/RequiredNonAuth';
-import { loginActions } from 'features/auth/model/slice/loginSlice';
+import { loginActions } from 'features/auth';
 import { ErrorPage } from 'pages/ErrorPage';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { getCookie } from 'shared/lib/getCookie/getCookie';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { PageLayout } from 'widgets/pageLayout/ui/PageLayout';
+import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { PageLayout } from 'widgets/pageLayout';
 
 import { RequiredAuth } from '../config/RequiredAuth';
+import { RequiredNonAuth } from '../config/RequiredNonAuth';
 import { appRouterConfig } from '../config/routerConfig';
 
 const newRouter = createBrowserRouter(
@@ -27,13 +27,13 @@ const newRouter = createBrowserRouter(
 );
 
 export const AppRouter = () => {
-  const dispatch = useAppDispatch();
+  const { setToken } = useAction(loginActions);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const token = getCookie('token');
     if (token) {
-      dispatch(loginActions.setToken(token));
+      setToken(token);
     }
-  }, [dispatch]);
+  }, [setToken]);
   return <RouterProvider router={newRouter} />;
 };

@@ -1,13 +1,16 @@
 import dayjs from 'dayjs';
-import { getUserData, updateUserData } from 'entities/user';
+import { getUserDataThunk, updateUserDataThunk } from 'entities/user';
 import { DeleteRowButton } from 'features/tableRowDelete';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useAction } from 'shared/lib/hooks/useActions/useActions';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelector/useAppSelector';
 
 import { DataGrid, gridClasses, GridColDef, GridRowModel } from '@mui/x-data-grid';
 
 export const Table = () => {
+  const actions = { getUserData: getUserDataThunk, updateUserData: updateUserDataThunk };
+  const { getUserData, updateUserData } = useAction(actions);
+
   const columns: GridColDef[] = useMemo(
     () => [
       {
@@ -80,7 +83,7 @@ export const Table = () => {
         field: 'actions',
         headerName: 'Action',
         type: 'actions',
-        width: 20,
+        width: 100,
         cellClassName: 'actions',
         align: 'center',
         getActions: ({ id }) => [<DeleteRowButton id={id} />]
@@ -89,24 +92,22 @@ export const Table = () => {
     []
   );
 
-  const dispatch = useAppDispatch();
-
   useEffect(() => {
-    dispatch(getUserData());
-  }, [dispatch]);
+    getUserData();
+  }, []);
 
-  const rows = useAppSelector((state) => state.user?.userData);
-  const isLoading = useAppSelector((state) => state.user?.isLoading);
+  const rows = useAppSelector((state) => state.user.userData);
+  const isLoading = useAppSelector((state) => state.user.isLoading);
 
   const handleProcessRowUpdateError = useCallback((error: Error) => {}, []);
 
   const processRowUpdate = useCallback(
     async (newRow: GridRowModel) => {
-      dispatch(updateUserData(newRow));
+      updateUserData(newRow);
       return newRow;
     },
 
-    [dispatch]
+    []
   );
 
   return (

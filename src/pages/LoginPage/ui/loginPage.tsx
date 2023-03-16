@@ -1,4 +1,4 @@
-import { LoginForm } from 'features/Auth/ui/LoginForm/LoginForm';
+import { LoginForm } from 'features/auth/ui/LoginForm/LoginForm';
 
 import { Box, Paper } from '@mui/material';
 

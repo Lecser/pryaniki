@@ -1,4 +1,4 @@
-import { getToken } from 'features/auth/model/selectors/getToken/getToken';
+import { getToken } from 'features/auth';
 import { PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
