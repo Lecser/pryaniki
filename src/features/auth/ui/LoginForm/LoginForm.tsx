@@ -3,19 +3,18 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useAction } from 'shared/lib/hooks/useActions/useActions';
 import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
+import { PrimaryButton } from 'shared/ui/PrimaryButton/PrimaryButton';
 import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {
-  Button,
   CircularProgress,
   Container,
   IconButton,
   InputAdornment,
   Stack,
-  styled,
   TextField,
   Typography
 } from '@mui/material';
@@ -58,19 +57,6 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<InputsType> = (data) => {
     loginByUsername(data);
   };
-
-  const BlackButton = styled(Button)({
-    backgroundColor: '#212121',
-    color: 'white',
-    height: '40px',
-    '&:hover': {
-      backgroundColor: '#424242'
-    },
-    '&:disabled': {
-      backgroundColor: '#424242',
-      color: 'white'
-    }
-  });
 
   return (
     <Container maxWidth='xs'>
@@ -123,9 +109,9 @@ export const LoginForm = () => {
             )}
           />
         </Stack>
-        <BlackButton disabled={loginIsLoading} type='submit' fullWidth variant='contained'>
+        <PrimaryButton disabled={loginIsLoading} type='submit' fullWidth variant='contained'>
           {loginIsLoading ? <CircularProgress size={28} color='inherit' /> : 'sign in'}
-        </BlackButton>
+        </PrimaryButton>
       </form>
     </Container>
   );

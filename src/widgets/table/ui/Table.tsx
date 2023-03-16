@@ -1,10 +1,18 @@
 import dayjs from 'dayjs';
-import { getUserDataThunk, updateUserDataThunk } from 'entities/user';
+import {
+  getUserDataSelector,
+  getUserDataThunk,
+  getUserIsLoading,
+  updateUserDataThunk
+} from 'entities/user';
+import { getUserError } from 'entities/user/model/selectors/getUserError/getUserError';
 import { DeleteRowButton } from 'features/tableRowDelete';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAction } from 'shared/lib/hooks/useActions/useActions';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelector/useAppSelector';
+import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
 
+import { Alert, AlertProps, Snackbar } from '@mui/material';
 import { DataGrid, gridClasses, GridColDef, GridRowModel } from '@mui/x-data-grid';
 
 export const Table = () => {
@@ -17,32 +25,28 @@ export const Table = () => {
         field: 'documentStatus',
         headerName: 'Document Status',
         width: 130,
-        editable: true,
-        align: 'center'
+        editable: true
       },
       {
         field: 'documentName',
         headerName: 'Document Name',
         type: 'string',
         width: 130,
-        editable: true,
-        align: 'center'
+        editable: true
       },
       {
         field: 'documentType',
         headerName: 'Document Type',
         type: 'string',
         width: 130,
-        editable: true,
-        align: 'center'
+        editable: true
       },
       {
         field: 'employeeNumber',
         headerName: 'Employee Number',
         type: 'string',
         width: 130,
-        editable: true,
-        align: 'center'
+        editable: true
       },
 
       {
@@ -50,16 +54,14 @@ export const Table = () => {
         headerName: 'Company Signature Name',
         type: 'string',
         width: 200,
-        editable: true,
-        align: 'center'
+        editable: true
       },
       {
         field: 'employeeSignatureName',
         headerName: 'Employee Signature Name',
         type: 'string',
         width: 200,
-        editable: true,
-        align: 'center'
+        editable: true
       },
       {
         field: 'employeeSigDate',
@@ -67,7 +69,6 @@ export const Table = () => {
         type: 'string',
         width: 200,
         editable: false,
-        align: 'center',
         renderCell: (params) => dayjs(params.row.employeeSigDate).format('YYYY-MM-DD HH:MM')
       },
       {
@@ -76,7 +77,7 @@ export const Table = () => {
         type: 'string',
         width: 200,
         editable: false,
-        align: 'center',
+
         renderCell: (params) => dayjs(params.row.employeeSigDate).format('YYYY-MM-DD HH:MM')
       },
       {
@@ -85,21 +86,26 @@ export const Table = () => {
         type: 'actions',
         width: 100,
         cellClassName: 'actions',
-        align: 'center',
+
         getActions: ({ id }) => [<DeleteRowButton id={id} />]
       }
     ],
     []
   );
 
+  const [snackbar, setSnackbar] = useState<Pick<AlertProps, 'children' | 'severity'> | null>(null);
+
   useEffect(() => {
     getUserData();
   }, []);
 
-  const rows = useAppSelector((state) => state.user.userData);
-  const isLoading = useAppSelector((state) => state.user.isLoading);
-
-  const handleProcessRowUpdateError = useCallback((error: Error) => {}, []);
+  const rows = useAppSelector(getUserDataSelector);
+  const isLoading = useAppSelector(getUserIsLoading);
+  const error = useAppSelector(getUserError);
+  const handleCloseSnackbar = () => setSnackbar(null);
+  const handleProcessRowUpdateError = useCallback((error: Error) => {
+    setSnackbar({ children: error.message, severity: 'error' });
+  }, []);
 
   const processRowUpdate = useCallback(
     async (newRow: GridRowModel) => {
@@ -111,30 +117,43 @@ export const Table = () => {
   );
 
   return (
-    <DataGrid
-      rows={rows || []}
-      columns={columns}
-      loading={isLoading}
-      processRowUpdate={processRowUpdate}
-      onProcessRowUpdateError={handleProcessRowUpdateError}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 5
+    <>
+      <ErrorSnackbar error={error} />
+      <DataGrid
+        rows={rows || []}
+        columns={columns}
+        loading={isLoading}
+        processRowUpdate={processRowUpdate}
+        onProcessRowUpdateError={handleProcessRowUpdateError}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 5
+            }
           }
-        }
-      }}
-      pageSizeOptions={[5]}
-      getRowSpacing={(params) => ({
-        top: params.isFirstVisible ? 0 : 5,
-        bottom: params.isLastVisible ? 0 : 5
-      })}
-      sx={{
-        [`& .${gridClasses.row}`]: {
-          bgcolor: '#e0e0e0'
-        }
-      }}
-      disableRowSelectionOnClick
-    />
+        }}
+        pageSizeOptions={[5]}
+        getRowSpacing={(params) => ({
+          top: params.isFirstVisible ? 0 : 5,
+          bottom: params.isLastVisible ? 0 : 5
+        })}
+        sx={{
+          [`& .${gridClasses.row}`]: {
+            backgroundColor: 'rgba(224,224,224,0.55)'
+          }
+        }}
+        disableRowSelectionOnClick
+      />
+      {!!snackbar && (
+        <Snackbar
+          open
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          onClose={handleCloseSnackbar}
+          autoHideDuration={6000}
+        >
+          <Alert {...snackbar} onClose={handleCloseSnackbar} />
+        </Snackbar>
+      )}
+    </>
   );
 };
