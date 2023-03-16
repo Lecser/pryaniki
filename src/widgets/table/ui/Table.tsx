@@ -14,6 +14,7 @@ import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
 
 import { Alert, AlertProps, Snackbar } from '@mui/material';
 import { DataGrid, gridClasses, GridColDef, GridRowModel } from '@mui/x-data-grid';
+import { isDeepEqual } from '@mui/x-data-grid/internals';
 
 export const Table = () => {
   const actions = { getUserData: getUserDataThunk, updateUserData: updateUserDataThunk };
@@ -108,7 +109,8 @@ export const Table = () => {
   }, []);
 
   const processRowUpdate = useCallback(
-    async (newRow: GridRowModel) => {
+    async (newRow: GridRowModel, oldRow: GridRowModel) => {
+      if (isDeepEqual(newRow, oldRow)) return newRow;
       updateUserData(newRow);
       return newRow;
     },
