@@ -8,7 +8,7 @@ import { PageLayout } from 'widgets/pageLayout';
 
 import { RequiredAuth } from '../config/RequiredAuth';
 import { RequiredNonAuth } from '../config/RequiredNonAuth';
-import { AppPaths, appRouterConfig } from '../config/routerConfig';
+import { appRouterConfig } from '../config/routerConfig';
 
 const newRouter = createBrowserRouter(
   appRouterConfig.map((route) => {
@@ -24,7 +24,7 @@ const newRouter = createBrowserRouter(
       errorElement: <ErrorPage />
     };
   }),
-  { basename: '/React' }
+  { basename: '/' }
 );
 
 export const AppRouter = () => {
