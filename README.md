@@ -1,6 +1,7 @@
 # Тестовое задание Pryaniki.
-Приложение было написано с использованием архитектурной методологии Feature-Sliced Design (FSD).
-Так же в приложении используется кастомная сборка Webpack.
+#### Приложение было написано с использованием архитектурной методологии Feature-Sliced Design (FSD).
+
+#### Так же под приложение была написана собственная сборка Webpack.
 
 ## Скрипты для запуска:
 
@@ -13,4 +14,4 @@
 
 
 ## Стек приложения:
-React, TypeScript, Redux toolkit, Axios, Material ui, react-router-dom, react-hook-form, husky, dayjs,eslint, prettier.
+React, TypeScript, Redux toolkit, Axios, Material ui, react-router-dom, react-hook-form, husky, dayjs, eslint, prettier.
