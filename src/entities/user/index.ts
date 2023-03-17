@@ -1,4 +1,5 @@
 export { getUserDataSelector } from './model/selectors/getUserDataSelector/getUserDataSelector';
+export { getUserError } from './model/selectors/getUserError/getUserError';
 export { getUserIsLoading } from './model/selectors/getUserIsLoading/getUserIsLoading';
 export { addNewUserDataThunk } from './model/services/addNewUserData/addNewUserDataThunk';
 export { getUserDataThunk } from './model/services/getUserData/getUserDataThunk';

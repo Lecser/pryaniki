@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import {
   getUserDataSelector,
   getUserDataThunk,
+  getUserError,
   getUserIsLoading,
   updateUserDataThunk
 } from 'entities/user';
-import { getUserError } from 'entities/user/model/selectors/getUserError/getUserError';
 import { DeleteRowButton } from 'features/tableRowDelete';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAction } from 'shared/lib/hooks/useActions/useActions';
@@ -100,7 +100,7 @@ export const Table = () => {
     getUserData();
   }, []);
 
-  const rows = useAppSelector(getUserDataSelector);
+  const tableRows = useAppSelector(getUserDataSelector);
   const isLoading = useAppSelector(getUserIsLoading);
   const error = useAppSelector(getUserError);
   const handleCloseSnackbar = () => setSnackbar(null);
@@ -122,7 +122,7 @@ export const Table = () => {
     <>
       <ErrorSnackbar error={error} />
       <DataGrid
-        rows={rows || []}
+        rows={tableRows || []}
         columns={columns}
         loading={isLoading}
         processRowUpdate={processRowUpdate}
