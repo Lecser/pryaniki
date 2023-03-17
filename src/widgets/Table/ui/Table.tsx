@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import {
   getUserDataSelector,
   getUserDataThunk,
@@ -7,93 +6,20 @@ import {
   updateUserDataThunk
 } from 'entities/user';
 import { User } from 'entities/user/model/types/userSchema';
-import { DeleteRowButton } from 'features/tableRowDelete';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelector/useAppSelector';
 import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar/ErrorSnackbar';
 
 import { Alert, AlertProps, Snackbar } from '@mui/material';
-import { DataGrid, gridClasses, GridColDef, GridRowModel } from '@mui/x-data-grid';
+import { DataGrid, gridClasses, GridRowModel } from '@mui/x-data-grid';
 import { isDeepEqual } from '@mui/x-data-grid/internals';
+
+import { BuildColumns } from '../config/buildColumns/BuildColumns';
 
 export const Table = () => {
   const actions = { getUserData: getUserDataThunk, updateUserData: updateUserDataThunk };
   const { getUserData, updateUserData } = useActions(actions);
-
-  const columns: GridColDef[] = useMemo(
-    () => [
-      {
-        field: 'documentStatus',
-        headerName: 'Document Status',
-        width: 130,
-        editable: true
-      },
-      {
-        field: 'documentName',
-        headerName: 'Document Name',
-        type: 'string',
-        width: 130,
-        editable: true
-      },
-      {
-        field: 'documentType',
-        headerName: 'Document Type',
-        type: 'string',
-        width: 130,
-        editable: true
-      },
-      {
-        field: 'employeeNumber',
-        headerName: 'Employee Number',
-        type: 'string',
-        width: 130,
-        editable: true
-      },
-
-      {
-        field: 'companySignatureName',
-        headerName: 'Company Signature Name',
-        type: 'string',
-        width: 200,
-        editable: true
-      },
-      {
-        field: 'employeeSignatureName',
-        headerName: 'Employee Signature Name',
-        type: 'string',
-        width: 200,
-        editable: true
-      },
-      {
-        field: 'employeeSigDate',
-        headerName: 'Employee Sig Date',
-        type: 'string',
-        width: 200,
-        editable: false,
-        renderCell: (params) => dayjs(params.row.employeeSigDate).format('YYYY-MM-DD HH:MM')
-      },
-      {
-        field: 'companySigDate',
-        headerName: 'Company Sig Date',
-        type: 'string',
-        width: 200,
-        editable: false,
-
-        renderCell: (params) => dayjs(params.row.employeeSigDate).format('YYYY-MM-DD HH:MM')
-      },
-      {
-        field: 'actions',
-        headerName: 'Action',
-        type: 'actions',
-        width: 100,
-        cellClassName: 'actions',
-
-        getActions: ({ id }) => [<DeleteRowButton id={id} />]
-      }
-    ],
-    []
-  );
 
   const [snackbar, setSnackbar] = useState<Pick<AlertProps, 'children' | 'severity'> | null>(null);
 
@@ -124,7 +50,7 @@ export const Table = () => {
       <ErrorSnackbar error={error} />
       <DataGrid
         rows={tableRows || []}
-        columns={columns}
+        columns={BuildColumns()}
         loading={isLoading}
         processRowUpdate={processRowUpdate}
         onProcessRowUpdateError={handleProcessRowUpdateError}

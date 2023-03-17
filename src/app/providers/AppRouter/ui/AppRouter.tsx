@@ -4,7 +4,7 @@ import { Suspense, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { getCookie } from 'shared/lib/getCookie/getCookie';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
-import { PageLayout } from 'widgets/pageLayout';
+import { PageLayout } from 'widgets/PageLayout';
 
 import { LinearProgress } from '@mui/material';
 

@@ -1,6 +1,6 @@
 import { AddNewDocumentButton } from 'features/addNewDocument';
 import React from 'react';
-import { Table } from 'widgets/table';
+import { Table } from 'widgets/Table';
 
 import { Box, Typography } from '@mui/material';
 
