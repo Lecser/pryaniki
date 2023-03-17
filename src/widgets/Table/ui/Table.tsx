@@ -68,8 +68,8 @@ export const Table = () => {
         })}
         sx={{
           boxShadow: 3,
-          '& .MuiDataGrid-cell:hover': {
-            opacity: '0.7',
+          [`& .${gridClasses.cell}:hover`]: {
+            color: '#757575',
             cursor: 'pointer'
           },
           [`& .${gridClasses.row}`]: {
