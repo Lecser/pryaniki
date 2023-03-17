@@ -1,4 +1,4 @@
-import { deleteUserDocumentThunk } from 'features/tableRowDelete';
+import { deleteUserDocumentThunk } from 'entities/user';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
 
 import DeleteIcon from '@mui/icons-material/Delete';
