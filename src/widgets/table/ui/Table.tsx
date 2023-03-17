@@ -110,7 +110,7 @@ export const Table = () => {
 
   const processRowUpdate = useCallback(
     async (newRow: GridRowModel, oldRow: GridRowModel) => {
-      if (isDeepEqual(newRow, oldRow)) return newRow;
+      if (isDeepEqual(newRow, oldRow)) return oldRow;
       updateUserData(newRow);
       return newRow;
     },
