@@ -1,5 +1,5 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { GridRowModel } from '@mui/x-data-grid';
@@ -7,13 +7,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { User } from '../../types/userSchema';
 
-export const updateUserDataThunk = createAsyncThunk<User, GridRowModel, ThunkConfig<string>>(
+export const updateUserDataThunk = createAsyncThunk<User, GridRowModel<User>, ThunkConfig<string>>(
   'user/updateUserDataThunk',
   async (userUpdatedData, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI;
 
     try {
-      const res = await extra.api.post<ResponseType<User>>(
+      const res = await extra.api.post<'', AxiosResponse<ResponseType<User>>, GridRowModel<User>>(
         `ru/data/v3/testmethods/docs/userdocs/set/${userUpdatedData.id}`,
         userUpdatedData
       );

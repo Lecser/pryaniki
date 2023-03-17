@@ -1,5 +1,5 @@
 import { deleteUserDocumentThunk } from 'features/tableRowDelete';
-import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { useActions } from 'shared/lib/hooks/useActions/useActions';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GridActionsCellItem, GridRowId } from '@mui/x-data-grid';
@@ -11,7 +11,7 @@ interface DeleteRowButtonProps {
 export const DeleteRowButton = (props: DeleteRowButtonProps) => {
   const { id } = props;
   const actions = { deleteUserDocument: deleteUserDocumentThunk };
-  const { deleteUserDocument } = useAction(actions);
+  const { deleteUserDocument } = useActions(actions);
 
   const handleDeleteClick = (id: GridRowId) => () => {
     deleteUserDocument(id);

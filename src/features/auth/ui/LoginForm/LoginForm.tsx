@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useAction } from 'shared/lib/hooks/useActions/useActions';
-import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
+import { useActions } from 'shared/lib/hooks/useActions/useActions';
+import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar/ErrorSnackbar';
 import { PrimaryButton } from 'shared/ui/PrimaryButton/PrimaryButton';
 import * as yup from 'yup';
 
@@ -33,7 +33,7 @@ export const LoginForm = () => {
   const loginIsLoading = useSelector(getLoginIsLoading);
   const error = useSelector(getLoginError);
   const actions = { loginByUsername: loginByUsernameThunk };
-  const { loginByUsername } = useAction(actions);
+  const { loginByUsername } = useActions(actions);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const Schema = yup.object({
@@ -74,7 +74,7 @@ export const LoginForm = () => {
                 size='small'
                 error={!!errors.username}
                 helperText={errors?.username?.message}
-                label='Имя пользователя'
+                label='Username'
                 variant='outlined'
                 margin='normal'
                 fullWidth
@@ -91,7 +91,7 @@ export const LoginForm = () => {
                 type={showPassword ? 'text' : 'password'}
                 error={!!errors.password}
                 helperText={errors?.password?.message}
-                label='Пароль'
+                label='Password'
                 variant='outlined'
                 margin='normal'
                 fullWidth

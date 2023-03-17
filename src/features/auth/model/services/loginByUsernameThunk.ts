@@ -19,7 +19,7 @@ export const loginByUsernameThunk = createAsyncThunk<
   const { extra, rejectWithValue } = thunkAPI;
   try {
     const res = await extra.api.post<
-      null,
+      '',
       AxiosResponse<ResponseType<AuthData>>,
       LoginByUsernameProps
     >('ru/data/v3/testmethods/docs/login', authData);

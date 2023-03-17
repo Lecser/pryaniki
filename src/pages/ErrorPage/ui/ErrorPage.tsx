@@ -1,4 +1,1 @@
-export const ErrorPage = () => {
-  console.log(123);
-  return <div>404 pageNotFound</div>;
-};
+export const ErrorPage = () => <div>404 page Not Found</div>;

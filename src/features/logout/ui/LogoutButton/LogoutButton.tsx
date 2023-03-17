@@ -1,14 +1,14 @@
 import { userActions } from 'entities/user';
 import { loginActions } from 'features/auth';
 import { PropsWithChildren } from 'react';
-import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { useActions } from 'shared/lib/hooks/useActions/useActions';
 
 import { Button } from '@mui/material';
 
 export const LogoutButton = (props: PropsWithChildren) => {
   const { children } = props;
   const actions = { ...userActions, ...loginActions };
-  const { clearUserData, setToken } = useAction(actions);
+  const { clearUserData, setToken } = useActions(actions);
 
   const onLogoutClick = () => {
     setToken('');

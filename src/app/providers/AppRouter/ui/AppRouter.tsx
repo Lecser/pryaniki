@@ -3,7 +3,7 @@ import { ErrorPage } from 'pages/ErrorPage';
 import { Suspense, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { getCookie } from 'shared/lib/getCookie/getCookie';
-import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { PageLayout } from 'widgets/pageLayout';
 
 import { LinearProgress } from '@mui/material';
@@ -33,7 +33,7 @@ const newRouter = createBrowserRouter(
 );
 
 export const AppRouter = () => {
-  const { setToken } = useAction(loginActions);
+  const { setToken } = useActions(loginActions);
 
   useEffect(() => {
     const token = getCookie('token');

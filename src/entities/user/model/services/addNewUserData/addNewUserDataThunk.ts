@@ -1,5 +1,5 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -24,7 +24,7 @@ export const addNewUserDataThunk = createAsyncThunk<User, null, ThunkConfig<stri
     };
 
     try {
-      const res = await extra.api.post<ResponseType<User>>(
+      const res = await extra.api.post<'', AxiosResponse<ResponseType<User>>, User>(
         `ru/data/v3/testmethods/docs/userdocs/create`,
         userData
       );

@@ -6,11 +6,12 @@ import {
   getUserIsLoading,
   updateUserDataThunk
 } from 'entities/user';
+import { User } from 'entities/user/model/types/userSchema';
 import { DeleteRowButton } from 'features/tableRowDelete';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useAction } from 'shared/lib/hooks/useActions/useActions';
+import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelector/useAppSelector';
-import { ErrorSnackbar } from 'shared/ui/ErrorSnackBart/ErrorSnackbar';
+import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar/ErrorSnackbar';
 
 import { Alert, AlertProps, Snackbar } from '@mui/material';
 import { DataGrid, gridClasses, GridColDef, GridRowModel } from '@mui/x-data-grid';
@@ -18,7 +19,7 @@ import { isDeepEqual } from '@mui/x-data-grid/internals';
 
 export const Table = () => {
   const actions = { getUserData: getUserDataThunk, updateUserData: updateUserDataThunk };
-  const { getUserData, updateUserData } = useAction(actions);
+  const { getUserData, updateUserData } = useActions(actions);
 
   const columns: GridColDef[] = useMemo(
     () => [
@@ -109,7 +110,7 @@ export const Table = () => {
   }, []);
 
   const processRowUpdate = useCallback(
-    async (newRow: GridRowModel, oldRow: GridRowModel) => {
+    async (newRow: GridRowModel<User>, oldRow: GridRowModel<User>) => {
       if (isDeepEqual(newRow, oldRow)) return oldRow;
       updateUserData(newRow);
       return newRow;

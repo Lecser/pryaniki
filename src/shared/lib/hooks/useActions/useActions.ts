@@ -19,7 +19,7 @@ type BoundAsyncThunk<Action extends ActionCreator<any>> = (
   ...args: Parameters<Action>
 ) => ReturnType<ReturnType<Action>>;
 
-export const useAction = <Actions extends ActionCreatorsMapObject = ActionCreatorsMapObject>(
+export const useActions = <Actions extends ActionCreatorsMapObject = ActionCreatorsMapObject>(
   actions: Actions
 ): BoundActions<Actions> => {
   const dispatch = useAppDispatch();
