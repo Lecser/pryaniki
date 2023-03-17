@@ -1,4 +1,5 @@
 import { LoginPage } from 'pages/LoginPage';
+import { NotFoundPage } from 'pages/NotFoundPage';
 import { TablePage } from 'pages/TablePage';
 import { ReactNode } from 'react';
 
@@ -26,6 +27,11 @@ export const appRouterConfig: AppRouterProps[] = [
   {
     path: AppPaths.loginPage,
     element: <LoginPage />,
+    pageLayout: false
+  },
+  {
+    path: AppPaths.page404,
+    element: <NotFoundPage />,
     pageLayout: false
   }
 ];

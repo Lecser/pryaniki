@@ -76,7 +76,7 @@ export const Table = () => {
       {!!snackbar && (
         <Snackbar
           open
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           onClose={handleCloseSnackbar}
           autoHideDuration={6000}
         >

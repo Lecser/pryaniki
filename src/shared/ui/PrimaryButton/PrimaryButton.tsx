@@ -5,9 +5,7 @@ interface PrimaryButtonProps extends ButtonProps {}
 export const PrimaryButton = (props: PrimaryButtonProps) => {
   const { children, ...restProps } = props;
 
-  const BlackButton = styled(Button)({
-    backgroundColor: '#212121',
-    color: 'white',
+  const StyledPrimaryButton = styled(Button)({
     marginBottom: '5px',
     height: '40px',
     '&:hover': {
@@ -20,8 +18,8 @@ export const PrimaryButton = (props: PrimaryButtonProps) => {
   });
 
   return (
-    <BlackButton variant='contained' {...restProps}>
+    <StyledPrimaryButton variant='contained' {...restProps}>
       {children}
-    </BlackButton>
+    </StyledPrimaryButton>
   );
 };
