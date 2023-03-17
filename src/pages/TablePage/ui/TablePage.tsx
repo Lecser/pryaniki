@@ -4,7 +4,7 @@ import { Table } from 'widgets/table';
 
 import { Box, Typography } from '@mui/material';
 
-export const TablePage = () => (
+const TablePage = () => (
   <Box sx={{ height: 400, width: '75%' }}>
     <Typography
       variant='h3'
@@ -18,3 +18,4 @@ export const TablePage = () => (
     <Table />
   </Box>
 );
+export default TablePage;

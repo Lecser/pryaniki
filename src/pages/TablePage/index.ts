@@ -1,1 +1,1 @@
-export { TablePage } from './ui/TablePage';
+export { TablePageAsync as TablePage } from './ui/TablePage.async';

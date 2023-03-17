@@ -2,7 +2,7 @@ import { LoginForm } from 'features/auth/ui/LoginForm/LoginForm';
 
 import { Box, Paper } from '@mui/material';
 
-export const LoginPage = () => (
+const LoginPage = () => (
   <Box
     display='flex'
     flexDirection='column'
@@ -15,3 +15,4 @@ export const LoginPage = () => (
     </Paper>
   </Box>
 );
+export default LoginPage;
