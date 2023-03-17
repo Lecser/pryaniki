@@ -1,8 +1,7 @@
-import { deleteUserDocumentThunk } from 'features/tableRowDelete';
-
 import { createSlice } from '@reduxjs/toolkit';
 
 import { addNewUserDataThunk } from '../services/addNewUserData/addNewUserDataThunk';
+import { deleteUserDocumentThunk } from '../services/deleteDocumentEntity/deleteUserDocumentThunk';
 import { getUserDataThunk } from '../services/getUserData/getUserDataThunk';
 import { updateUserDataThunk } from '../services/updateUserData/updateUserDataThunk';
 import { UserSchema } from '../types/userSchema';
