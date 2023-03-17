@@ -4,7 +4,7 @@ import { ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { AuthData } from '../../types/loginSchema';
+import { AuthData } from '../types/loginSchema';
 
 interface LoginByUsernameProps {
   username: string;

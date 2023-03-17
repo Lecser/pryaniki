@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar/ErrorSnackbar';
 import { PrimaryButton } from 'shared/ui/PrimaryButton/PrimaryButton';
-import * as yup from 'yup';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -19,6 +18,7 @@ import {
   Typography
 } from '@mui/material';
 
+import { loginValidationSchema } from '../../../../shared/config/loginValidationSchema';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { loginByUsernameThunk } from '../../model/services/loginByUsernameThunk';
@@ -36,11 +36,6 @@ export const LoginForm = () => {
   const { loginByUsername } = useActions(actions);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const Schema = yup.object({
-    username: yup.string().required('Username is required'),
-    password: yup.string().required('Password is required')
-  });
-
   const {
     handleSubmit,
     control,
@@ -51,7 +46,7 @@ export const LoginForm = () => {
       password: ''
     },
     mode: 'onBlur',
-    resolver: yupResolver(Schema)
+    resolver: yupResolver(loginValidationSchema)
   });
 
   const onSubmit: SubmitHandler<InputsType> = (data) => {
