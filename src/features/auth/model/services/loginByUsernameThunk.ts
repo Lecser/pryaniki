@@ -1,6 +1,7 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { AxiosError, AxiosResponse } from 'axios';
 import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
+import { setCookie } from 'shared/lib/setCookie/setCookie';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -27,7 +28,7 @@ export const loginByUsernameThunk = createAsyncThunk<
     if (res.data.error_code !== 0 && res.data.error_text) {
       return rejectWithValue(res.data.error_text);
     }
-    document.cookie = `token=${res.data.data.token}`;
+    setCookie('token', res.data.data.token, 30);
     return res.data.data;
   } catch (e) {
     const err = e as Error | AxiosError;

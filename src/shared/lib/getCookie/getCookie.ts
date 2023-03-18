@@ -1,8 +1,10 @@
-export const getCookie = (name: string) => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) {
-    // @ts-ignore
-    return parts.pop().split(';').shift();
-  }
+export const getCookie = (cName: string) => {
+  const name = `${cName}=`;
+  const cDecoded = decodeURIComponent(document.cookie); // to be careful
+  const cArr = cDecoded.split('; ');
+  let res;
+  cArr.forEach((val) => {
+    if (val.indexOf(name) === 0) res = val.substring(name.length);
+  });
+  return res;
 };
