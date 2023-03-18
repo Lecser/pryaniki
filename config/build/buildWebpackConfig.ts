@@ -3,7 +3,7 @@ import type webpack from 'webpack';
 import { type BuildOptions } from './types/config';
 import { buildDevServer } from './buildDevServer';
 import { buildLoaders } from './buildLoaders';
-import { buildPlugin } from './buildPlugin';
+import { buildPlugins } from './buildPlugins';
 import { buildResolvers } from './buildResolvers';
 
 export function buildWebpackConfig(options: BuildOptions): webpack.Configuration {
@@ -20,7 +20,7 @@ export function buildWebpackConfig(options: BuildOptions): webpack.Configuration
       rules: buildLoaders(options)
     },
     resolve: buildResolvers(options),
-    plugins: buildPlugin(options),
+    plugins: buildPlugins(options),
     devtool: isDev ? 'inline-source-map' : undefined,
     devServer: isDev ? buildDevServer(options) : undefined
   };

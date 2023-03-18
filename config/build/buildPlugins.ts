@@ -7,7 +7,7 @@ import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 import { type BuildOptions } from './types/config';
 
-export function buildPlugin({
+export function buildPlugins({
   paths,
   isDev,
   analyze
