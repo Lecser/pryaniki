@@ -27,7 +27,7 @@ export const Table = () => {
     getUserData();
   }, []);
 
-  const tableRows = useAppSelector(getUserDataSelector);
+  const userData = useAppSelector(getUserDataSelector);
   const isLoading = useAppSelector(getUserIsLoading);
   const error = useAppSelector(getUserError);
   const handleCloseSnackbar = () => setSnackbar(null);
@@ -41,7 +41,6 @@ export const Table = () => {
       updateUserData(newRow);
       return newRow;
     },
-
     []
   );
 
@@ -49,7 +48,7 @@ export const Table = () => {
     <>
       <ErrorSnackbar error={error} />
       <DataGrid
-        rows={tableRows || []}
+        rows={userData}
         columns={BuildColumns()}
         loading={isLoading}
         processRowUpdate={processRowUpdate}
@@ -68,8 +67,9 @@ export const Table = () => {
         })}
         sx={{
           boxShadow: 3,
-          [`& .${gridClasses.cell}:hover`]: {
-            color: '#757575',
+          [`& .${gridClasses['cell--editable']}:hover`]: {
+            border: 1,
+            boxShadow: 2,
             cursor: 'pointer'
           },
           [`& .${gridClasses.row}`]: {
