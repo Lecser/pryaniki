@@ -1,5 +1,6 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { GridRowModel } from '@mui/x-data-grid';
@@ -17,14 +18,13 @@ export const updateUserDataThunk = createAsyncThunk<User, GridRowModel<User>, Th
         `ru/data/v3/testmethods/docs/userdocs/set/${userUpdatedData.id}`,
         userUpdatedData
       );
-      if (res.data.error_code !== 0) {
+      if (res.data.error_code !== 0 && res.data.error_text) {
         return rejectWithValue(res.data.error_text);
       }
       return res.data.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        return rejectWithValue(e.message ? e.message : 'Some error occurred');
-      }
+      const err = e as Error | AxiosError;
+      return handleAsyncServerNetworkError(err, rejectWithValue);
     }
   }
 );

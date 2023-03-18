@@ -1,12 +1,13 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
-import axios, { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
+import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
 import { ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { User } from '../../types/userSchema';
 
-export const addNewUserDataThunk = createAsyncThunk<User, null, ThunkConfig<string>>(
+export const addNewUserDataThunk = createAsyncThunk<User, void, ThunkConfig<string>>(
   'user/addNewUserDataThunk',
   async (_, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI;
@@ -28,14 +29,13 @@ export const addNewUserDataThunk = createAsyncThunk<User, null, ThunkConfig<stri
         `ru/data/v3/testmethods/docs/userdocs/create`,
         userData
       );
-      if (res.data.error_code !== 0) {
+      if (res.data.error_code !== 0 && res.data.error_text) {
         return rejectWithValue(res.data.error_text);
       }
       return res.data.data;
     } catch (e) {
-      if (axios.isAxiosError(e)) {
-        return rejectWithValue(e.message ? e.message : 'Some error occurred');
-      }
+      const err = e as Error | AxiosError;
+      return handleAsyncServerNetworkError(err, rejectWithValue);
     }
   }
 );

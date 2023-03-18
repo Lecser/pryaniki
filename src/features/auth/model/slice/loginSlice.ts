@@ -6,7 +6,7 @@ import { LoginSchema } from '../types/loginSchema';
 const initialState: LoginSchema = {
   token: '',
   isLoading: false,
-  error: null
+  error: undefined
 };
 export const loginSlice = createSlice({
   name: 'login',
@@ -19,7 +19,7 @@ export const loginSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(loginByUsernameThunk.pending, (state) => {
-        state.error = null;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(loginByUsernameThunk.fulfilled, (state, action) => {

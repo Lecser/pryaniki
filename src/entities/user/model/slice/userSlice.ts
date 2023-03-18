@@ -8,7 +8,7 @@ import { UserSchema } from '../types/userSchema';
 
 const initialState: UserSchema = {
   userData: [],
-  error: null,
+  error: undefined,
   isLoading: false
 };
 
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getUserDataThunk.pending, (state) => {
-        state.error = null;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(getUserDataThunk.fulfilled, (state, action) => {
@@ -36,7 +36,7 @@ export const userSlice = createSlice({
       });
     builder
       .addCase(updateUserDataThunk.pending, (state) => {
-        state.error = null;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(updateUserDataThunk.fulfilled, (state, action) => {
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
       });
     builder
       .addCase(addNewUserDataThunk.pending, (state) => {
-        state.error = null;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(addNewUserDataThunk.fulfilled, (state, action) => {
@@ -64,7 +64,7 @@ export const userSlice = createSlice({
       });
     builder
       .addCase(deleteUserDocumentThunk.pending, (state) => {
-        state.error = null;
+        state.error = undefined;
         state.isLoading = true;
       })
       .addCase(deleteUserDocumentThunk.fulfilled, (state, action) => {
