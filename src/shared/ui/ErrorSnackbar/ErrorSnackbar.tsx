@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { Alert, Snackbar } from '@mui/material';
 
@@ -9,10 +9,11 @@ interface ErrorSnackbarProps {
 export const ErrorSnackbar = (props: ErrorSnackbarProps) => {
   const { error } = props;
   const [open, setOpen] = useState(false);
-  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+  const handleClose = (event?: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return;
     }
+
     setOpen(false);
   };
 
