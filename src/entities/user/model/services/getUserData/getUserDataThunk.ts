@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import { $api, createSetTokenInterceptor } from 'shared/api/api/api';
 import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
 import { getCookie } from 'shared/lib/getCookie/getCookie';
-import { ResponseType } from 'shared/types/responseTypes';
+import { ErrorCode, ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -19,13 +19,13 @@ export const getUserDataThunk = createAsyncThunk<User[], void, ThunkConfig<strin
       $api.interceptors.request.use(setToken);
     }
     try {
-      const res = await extra.api.get<ResponseType<User[]>>(
+      const { data: responseData } = await extra.api.get<ResponseType<User[]>>(
         'ru/data/v3/testmethods/docs/userdocs/get'
       );
-      if (res.data.error_code !== 0 && res.data.error_text) {
-        return rejectWithValue(res.data.error_text);
+      if (responseData.error_code !== ErrorCode.OK && responseData.error_text) {
+        return rejectWithValue(responseData.error_text);
       }
-      return res.data.data;
+      return responseData.data;
     } catch (e) {
       const err = e as Error | AxiosError;
       return handleAsyncServerNetworkError(err, rejectWithValue);

@@ -1,7 +1,7 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { AxiosError } from 'axios';
 import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
-import { ResponseType } from 'shared/types/responseTypes';
+import { ErrorCode, ResponseType } from 'shared/types/responseTypes';
 
 import { GridRowId } from '@mui/x-data-grid';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -11,11 +11,11 @@ export const deleteUserDocumentThunk = createAsyncThunk<GridRowId, GridRowId, Th
   async (id, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI;
     try {
-      const res = await extra.api.post<ResponseType>(
+      const { data: responseData } = await extra.api.post<ResponseType>(
         `ru/data/v3/testmethods/docs/userdocs/delete/${id}`
       );
-      if (res.data.error_code !== 0 && res.data.error_text) {
-        return rejectWithValue(res.data.error_text);
+      if (responseData.error_code !== ErrorCode.OK && responseData.error_text) {
+        return rejectWithValue(responseData.error_text);
       }
       return id;
     } catch (e) {
