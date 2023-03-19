@@ -42,7 +42,7 @@ export const userSlice = createSlice({
       .addCase(updateUserDataThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userData = state.userData.map((el) =>
-          el.id === action.payload.id ? { ...action.payload } : el
+          el.id === action.payload.id ? action.payload : el
         );
       })
       .addCase(updateUserDataThunk.rejected, (state, action) => {
