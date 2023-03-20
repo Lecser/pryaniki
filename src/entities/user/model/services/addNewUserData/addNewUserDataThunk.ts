@@ -7,23 +7,10 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { User } from '../../types/userSchema';
 
-export const addNewUserDataThunk = createAsyncThunk<User, void, ThunkConfig<string>>(
+export const addNewUserDataThunk = createAsyncThunk<User, User, ThunkConfig<string>>(
   'user/addNewUserDataThunk',
-  async (_, thunkAPI) => {
+  async (userData, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI;
-
-    const isoDate = new Date().toISOString();
-    const userData = {
-      companySigDate: isoDate,
-      companySignatureName: 'empty',
-      documentName: 'empty',
-      documentStatus: 'empty',
-      documentType: 'empty',
-      employeeNumber: 'empty',
-      employeeSigDate: isoDate,
-      employeeSignatureName: 'empty'
-    };
-
     try {
       const { data: responseData } = await extra.api.post<
         '',

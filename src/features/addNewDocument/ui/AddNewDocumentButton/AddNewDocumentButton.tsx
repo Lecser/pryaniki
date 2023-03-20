@@ -10,12 +10,23 @@ export const AddNewDocumentButton = () => {
   const actions = { addNewUserData: addNewUserDataThunk };
   const { addNewUserData } = useActions(actions);
   const onClickAdd = () => {
-    addNewUserData();
+    const isoDate = new Date().toISOString();
+    const newDocument = {
+      companySigDate: isoDate,
+      companySignatureName: 'empty',
+      documentName: 'empty',
+      documentStatus: 'empty',
+      documentType: 'empty',
+      employeeNumber: 'empty',
+      employeeSigDate: isoDate,
+      employeeSignatureName: 'empty'
+    };
+    addNewUserData(newDocument);
   };
 
   return (
-    <PrimaryButton disabled={isLoading} onClick={onClickAdd}>
-      <NoteAddIcon sx={{ marginRight: '5px' }} /> New Document
+    <PrimaryButton variant='contained' disabled={isLoading} onClick={onClickAdd}>
+      <NoteAddIcon sx={{ marginRight: '5px' }} /> new empty document
     </PrimaryButton>
   );
 };

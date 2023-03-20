@@ -1,4 +1,4 @@
-import { AddNewDocumentButton } from 'features/addNewDocument';
+import { AddNewDocumentButton, AddNewDocumentModal } from 'features/addNewDocument';
 import React from 'react';
 import { Table } from 'widgets/Table';
 
@@ -14,6 +14,7 @@ const TablePage = () => (
     >
       Documents
     </Typography>
+    <AddNewDocumentModal />
     <AddNewDocumentButton />
     <Table />
   </Box>
