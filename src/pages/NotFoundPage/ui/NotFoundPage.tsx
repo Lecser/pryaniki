@@ -22,7 +22,9 @@ export const NotFoundPage = () => {
         <Typography textAlign='center' variant='h4'>
           Page not found 😕
         </Typography>
-        <PrimaryButton onClick={onNavigateButtonClick}>Back to home page</PrimaryButton>
+        <PrimaryButton variant='contained' onClick={onNavigateButtonClick}>
+          Back to home page
+        </PrimaryButton>
       </Stack>
     </Box>
   );

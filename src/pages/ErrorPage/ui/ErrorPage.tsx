@@ -18,7 +18,9 @@ export const ErrorPage = () => {
       <Typography mb='10px' variant='h4'>
         An unexpected error occurred 😕
       </Typography>
-      <PrimaryButton onClick={onReloadButtonClick}>Reload Page</PrimaryButton>
+      <PrimaryButton variant='contained' onClick={onReloadButtonClick}>
+        Reload Page
+      </PrimaryButton>
     </Box>
   );
 };
