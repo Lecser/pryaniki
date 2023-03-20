@@ -5,7 +5,7 @@ import { Table } from 'widgets/Table';
 import { Box, Typography } from '@mui/material';
 
 const TablePage = () => (
-  <Box sx={{ height: 400, width: '75%' }}>
+  <Box sx={{ height: 500, width: '75%' }}>
     <Typography
       variant='h3'
       fontWeight='bold'
