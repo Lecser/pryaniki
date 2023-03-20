@@ -1,1 +1,1 @@
-export { AddNewDocumentButton } from './ui/addNewDocumentButton/addNewDocumentButton';
+export { AddNewDocumentButton } from './ui/AddNewDocumentButton/AddNewDocumentButton';
