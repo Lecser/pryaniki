@@ -1,8 +1,8 @@
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { AxiosError } from 'axios';
 import { $api, createSetTokenInterceptor } from 'shared/api/api/api';
+import { cookie } from 'shared/lib/cookie/cookie';
 import { handleAsyncServerNetworkError } from 'shared/lib/error-utils/handleAsyncServerError/handleAsyncServerNetworkError';
-import { getCookie } from 'shared/lib/getCookie/getCookie';
 import { ErrorCode, ResponseType } from 'shared/types/responseTypes';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -13,7 +13,7 @@ export const getUserDataThunk = createAsyncThunk<User[], void, ThunkConfig<strin
   'user/getUserDataThunk',
   async (_, thunkAPI) => {
     const { extra, rejectWithValue } = thunkAPI;
-    const token = getCookie('token');
+    const token = cookie.get('token');
     if (token) {
       const setToken = createSetTokenInterceptor('x-auth', token);
       $api.interceptors.request.use(setToken);

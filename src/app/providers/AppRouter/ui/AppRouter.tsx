@@ -2,7 +2,7 @@ import { loginActions } from 'features/auth';
 import { ErrorPage } from 'pages/ErrorPage';
 import { Suspense, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { getCookie } from 'shared/lib/getCookie/getCookie';
+import { cookie } from 'shared/lib/cookie/cookie';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { PageLayout } from 'widgets/PageLayout';
 
@@ -36,7 +36,7 @@ export const AppRouter = () => {
   const { setToken } = useActions(loginActions);
 
   useEffect(() => {
-    const token = getCookie('token');
+    const token = cookie.get('token');
     if (token) {
       setToken(token);
     }
