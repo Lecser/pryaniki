@@ -2,6 +2,7 @@ import { userActions } from 'entities/user';
 import { loginActions } from 'features/auth';
 import { PropsWithChildren } from 'react';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
+import { removeCookie } from 'shared/lib/removeCookie/removeCookie';
 
 import { Button } from '@mui/material';
 
@@ -13,7 +14,7 @@ export const LogoutButton = (props: PropsWithChildren) => {
   const onLogoutClick = () => {
     setToken('');
     clearUserData();
-    document.cookie = `token=;expires=${new Date(0)}`;
+    removeCookie('token');
   };
 
   return (
