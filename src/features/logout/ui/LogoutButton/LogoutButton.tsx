@@ -15,6 +15,7 @@ export const LogoutButton = (props: PropsWithChildren) => {
     setToken('');
     clearUserData();
     removeCookie('token');
+    window.location.reload();
   };
 
   return (
