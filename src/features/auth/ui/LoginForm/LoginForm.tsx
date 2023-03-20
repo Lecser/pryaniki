@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { loginValidationSchema } from 'shared/config/loginValidationSchema';
 import { useActions } from 'shared/lib/hooks/useActions/useActions';
 import { ErrorSnackbar } from 'shared/ui/ErrorSnackbar/ErrorSnackbar';
 import { PrimaryButton } from 'shared/ui/PrimaryButton/PrimaryButton';
@@ -18,7 +19,6 @@ import {
   Typography
 } from '@mui/material';
 
-import { loginValidationSchema } from '../../../../shared/config/loginValidationSchema';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
 import { getLoginIsLoading } from '../../model/selectors/getLoginIsLoading/getLoginIsLoading';
 import { loginByUsernameThunk } from '../../model/services/loginByUsernameThunk';
