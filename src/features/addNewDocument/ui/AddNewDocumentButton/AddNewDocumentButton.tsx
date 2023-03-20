@@ -26,7 +26,7 @@ export const AddNewDocumentButton = () => {
 
   return (
     <PrimaryButton variant='contained' disabled={isLoading} onClick={onClickAdd}>
-      <NoteAddIcon sx={{ marginRight: '5px' }} /> new empty document
+      <NoteAddIcon sx={{ mr: 1 }} /> new empty document
     </PrimaryButton>
   );
 };

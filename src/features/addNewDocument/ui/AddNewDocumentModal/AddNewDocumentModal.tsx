@@ -17,13 +17,8 @@ export const AddNewDocumentModal = () => {
 
   return (
     <>
-      <PrimaryButton
-        sx={{ mr: '5px' }}
-        variant='contained'
-        disabled={isLoading}
-        onClick={handleOpen}
-      >
-        <NoteAddIcon sx={{ mr: '5px' }} /> New Document
+      <PrimaryButton sx={{ mr: 1 }} variant='contained' disabled={isLoading} onClick={handleOpen}>
+        <NoteAddIcon sx={{ mr: 1 }} /> New Document
       </PrimaryButton>
       <CustomModal open={open} onClose={handleClose}>
         <AddNewDocumentForm handleClose={handleClose} />
